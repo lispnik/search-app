@@ -1,0 +1,30 @@
+<h1>Search#index</h1>
+<p>Find me in app/views/search/index.html.erb</p>
+
+<%= form_with url: "/", method: :get do |form| %>
+  <%= form.label :query, "Enter book name:" %>
+  <%= form.text_field :query %>
+<% end %>
+
+<% if @results.empty? %>
+  <p class="notice">No results</p>
+<% else %>
+  <table>
+    <thead>
+    <tr>
+      <th>Book Title</th>
+      <th>Author</th>
+      <th>Link to Open Library Page</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @results.each_with_index do | result, i | %>
+    <tr>
+      <td><%=result.title %></td>
+      <td><%=result.author %></td>
+      <td><%=link_to %></td>
+    </tr>
+<% end %>
+</tbody>
+</table>
+<% end %>
