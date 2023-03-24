@@ -5,7 +5,8 @@ class OpenLibraryService
   base_uri 'openlibrary.org'
 
   def search(query)
-    results = self.class.get('/search.json', {query: {q: query, fields: 'title,author_name,key'}})
-    results
+    response = self.class.get('/search.json', { query: { q: query, fields: 'title,author_name,key' }, headers: { 'Accept-Encoding': 'application/json' } })
+    result = JSON.parse response.body
+    result['docs']
   end
 end
