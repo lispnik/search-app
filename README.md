@@ -1,24 +1,34 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple search interface to OpenLibrary.
 
-Things you may want to cover:
+## Setup
 
-* Ruby version
+Create a *Ruby 3.2.1* environment with, for example, RVM
 
-* System dependencies
+The SASS needs a system compiler in order to build and compile the SCSS.
 
-* Configuration
+## Development 
 
-* Database creation
+Start the server with:
 
-* Database initialization
+```shell
+bin/rails server -b 0.0.0.0 -p 3000 -e development
+```
 
-* How to run the test suite
+## Deployment
 
-* Services (job queues, cache servers, search engines, etc.)
+Install the Heroku CLI
 
-* Deployment instructions
+```shell
+heroku apps:create
+```
+Push a branch to the Heroku remote. e.g.
 
-* ...
+```shell
+git push heroku main
+```
+
+Git console messages from Heroku will include the deployment end point.
+
+Application entry point is the root path.
