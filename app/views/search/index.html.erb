@@ -1,29 +1,42 @@
-<h1>OpenLibrary Search</h1>
+<div class="container-fluid">
+  <h1>OpenLibrary Search</h1>
 
-<%= form_with url: "/", method: :get do |form| %>
-  <%= form.label :query, "Enter book name:" %>
-  <%= form.text_field :query, options = { :type => :search, :autofocus => true, :value => @query } %>
-<% end %>
+  <%= form_with url: "/", method: :get do |form| %>
+    <%= form.label :query, "Enter book name:" %>
+    <%= form.text_field :query, options = { :type => :search, :autofocus => true, :value => @query, :class => "form-control" } %>
+  <% end %>
 
-<% if @results.empty? %>
-  <p class="notice">No results</p>
-<% else %>
-  <table>
-    <thead>
-    <tr>
-      <th>Book Title</th>
-      <th>Author</th>
-      <th>Link to Open Library Page</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @results.each do |result| %>
+  <% if @results.nil? %>
+    <div class="alert alert-danger">Service unavailable</div>
+  <% elsif @results.empty? %>
+    <div class="gap-2 alert alert-primary">No results</div>
+  <% else %>
+    <table class="table table-striped">
+      <thead>
       <tr>
-        <td><%= result['title'] %></td>
-        <td><%= authors_list(result['author_name']) %></td>
-        <td><%= link_to_work(result['key']) %></td>
+        <th scope="col">Book Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">Open Library</th>
       </tr>
+      </thead>
+      <tbody>
+      <% @results.each do |result| %>
+        <tr>
+          <td><%= result['title'] %></td>
+          <td><%= authors_list(result['author_name']) %></td>
+          <td><%= link_to_work(result['key']) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <p><em><%= @total %> total</em></p>
+    <% if @start < @total %>
+      <nav>
+        <ul class="pagination">
+          <li class="page-item"><%= link_to 'More', search_index_path(query: @query, page: @next_page), class: 'page-link' %></li>
+        </ul>
+      </nav>
     <% end %>
-    </tbody>
-  </table>
-<% end %>
+  <% end %>
+</div>
+
