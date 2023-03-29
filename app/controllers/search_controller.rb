@@ -2,7 +2,7 @@ class SearchController < ApplicationController
 
   def index
     @query = params['query']
-    @page = params['page'] || 0
+    @page = params['page'] || 1
     @next_page = @page.to_i + 1
     @results = []
     if @query.present?
